@@ -1,0 +1,85 @@
+<!-- res/layout/activity_details.xml -->
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:layout_weight="1"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/favoritesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="end"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="Избранные"
+                android:onClick="onFavoritesButtonClick"
+                android:src="@drawable/n555" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageViewCover"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/textViewTags"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/textViewContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitle"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/textViewAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewContent"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewAuthor"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/textViewTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDate"
+            android:layout_marginTop="8dp"/>
+
+
+
+        <TextView
+            android:id="@+id/textViewAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageViewCover"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+</ScrollView>

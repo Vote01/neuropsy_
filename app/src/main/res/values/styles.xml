@@ -1,0 +1,14 @@
+<resources>
+    <!--    <androidx.appcompat.widget.Toolbar-->
+    <!-- Базовая тема приложения -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- ... Другие атрибуты темы ... -->
+        <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
+    </style>
+
+    <!-- Стиль для всплывающих окон -->
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <!-- ... Другие атрибуты стиля для всплывающих окон ... -->
+    </style>
+
+</resources>
