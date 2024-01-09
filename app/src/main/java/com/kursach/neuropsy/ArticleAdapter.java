@@ -27,7 +27,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
     private final int resourceId;
 
-    private List<Article> mObjects; // Добавьте поле для хранения данных
+    private List<Article> mObjects;
 
     public ArticleAdapter(Context context, int resourceId, List<Article> articles) {
         super(context, resourceId, articles);
@@ -36,10 +36,6 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
     }
 
 
-//    public ArticleAdapter(Context context, int resourceId, List<Article> articles) {
-//        super(context, resourceId, articles);
-//        this.resourceId = resourceId;
-//    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -59,17 +55,16 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         if (contentTextView != null) {
             contentTextView.setText(article.getAbout());
         }
-        contentTextView.setText(article.getContent());
+        contentTextView.setText(article.getAbout());
         if (authorTextView != null) {
-            authorTextView.setText("Author: " + article.getAuthor());
+            authorTextView.setText("Автор: " + article.getAuthor());
         }
-        authorTextView.setText("Author: " + article.getAuthor());
+        authorTextView.setText("Автор: " + article.getAuthor());
         byte[] imageData = article.getCover();
         if (imageData != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
             imageView.setImageBitmap(bitmap);
         } else {
-            // Set a default image or handle the case where no image is available
         }
 
         return view;

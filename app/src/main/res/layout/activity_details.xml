@@ -1,4 +1,3 @@
-<!-- res/layout/activity_details.xml -->
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +34,7 @@
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="Избранные"
                 android:onClick="onFavoritesButtonClick"
-                android:src="@drawable/n555" />
+                android:src="@drawable/nizbr_64" />
         </LinearLayout>
         <ImageView
             android:id="@+id/imageViewCover"

@@ -25,6 +25,7 @@
             <!-- Add any intent filters or other configuration if needed -->
         </activity>
         <activity android:name=".GlossaryActivity" />
+        <activity android:name=".FavActivity" />
     </application>
 
 </manifest>

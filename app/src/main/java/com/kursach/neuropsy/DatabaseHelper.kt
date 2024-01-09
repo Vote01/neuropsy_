@@ -166,9 +166,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
         val cursor = db.rawQuery("SELECT * FROM favourites", null)
         try {
             while (cursor.moveToNext()) {
-                val dishesId = cursor.getInt(cursor.getColumnIndex("articl_id"))
-                Log.d("В таблицу добавили рецеп с ID", "articl_id: $dishesId")
-                // Здесь вы можете делать что-то с полученными данными
+                val id = cursor.getInt(cursor.getColumnIndex("articl_id"))
+                Log.d("В таблицу добавили статью с ID", "articl_id: $id")
             }
         } catch (e: Exception) {
             // Обработка возможных исключений

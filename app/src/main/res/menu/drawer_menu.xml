@@ -3,19 +3,15 @@
 
     <item
         android:id="@+id/menu_item1"
-        android:title="ГлоссариЙ" />
+        android:title="Глоссарий" />
 
     <item
         android:id="@+id/menu_item2"
-        android:onClick="onAddRecipeClick"
         android:title="Избранное" />
 
     <item
         android:id="@+id/menu_item3"
-        android:title="Тесты" />
-    <item
-        android:id="@+id/menu_item4"
-        android:title="Поиск по тегам" />
-    <!-- Добавьте дополнительные пункты меню по необходимости -->
+        android:title="Статьи" />
+
 
 </menu>

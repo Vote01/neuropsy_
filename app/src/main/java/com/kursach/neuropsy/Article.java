@@ -11,6 +11,7 @@ public class Article {
     private byte[] cover;
     private String about;
 
+
     public Article(int id, String title, String content, String author, String date, String tags, byte[] cover, String about) {
         this.id = id;
         this.title = title;

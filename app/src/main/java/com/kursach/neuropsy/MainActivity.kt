@@ -8,9 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.ListView
-import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -35,13 +34,6 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawerLayout)
         navigationView = findViewById(R.id.navigationView)
 
-//        val toolbar: Toolbar = findViewById(R.id.toolbar)
-//
-//        val toggle = ActionBarDrawerToggle(
-//            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-//        )
-//        drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
 
         // Слушаем боковую панель
         navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -55,18 +47,19 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_item2 -> {
-
+               //   android:onClick="onAddFavClick"
+                    val intent = Intent(this, FavActivity::class.java)
+                    startActivity(intent)
                     // Действие для пункта "Избранное"
                     true
                 }
                 R.id.menu_item3 -> {
-                    // Действие для пункта "Тесты"
+                    // Действие для пункта "Статьи"
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     true
                 }
-                R.id.menu_item4 -> {
-                    // Действие для пункта "Поиск по тегам"
-                    true
-                }
+
                 else -> false
             } }
 
@@ -78,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         articleList = ArrayList()
 
         loadArticles()
-        Log.d("DishAdapter", "Number of dishes loaded: ${articleList.size}")
+        Log.d("ArticleAdapter", "Number of articles loaded: ${articleList.size}")
 
         val adapter = ArticleAdapter(this, R.layout.list_item_article, articleList)
         listView.adapter = adapter
@@ -86,16 +79,13 @@ class MainActivity : AppCompatActivity() {
 
         listView.setOnItemClickListener { parent, view, position, id ->
             // Получите данные о выбранном элементе
-            val selectedDish = articleList[position]
+            val selected = articleList[position]
 
             // Создайте Intent для открытия новой активности
             val intent = Intent(this, DetailsActivity::class.java)
 
             // Передайте данные о выбранном блюде в новую активность
-            intent.putExtra("ID", (selectedDish.id).toString())
-//            intent.putExtra("description", selectedDish.description)
-//            intent.putExtra("dishid", (selectedDish.dishId).toString())
-//            intent.putExtra("cookingTime", selectedDish.cookingTime)
+            intent.putExtra("ID", (selected.id).toString())
 
             // Добавьте другие данные по необходимости
 
@@ -134,45 +124,34 @@ class MainActivity : AppCompatActivity() {
         db.close()
     }
 
-    fun onBTClick(view: View) {
-        val intent = Intent(this, GlossaryActivity::class.java)
-        startActivity(intent)
-    }
+    fun onFilterClick(view: View) {
+        val textField = findViewById<EditText>(R.id.textField)
+        val tags = textField.text.toString().takeIf { it.isNotBlank() }
 
-    fun onBTClickRE(view: View) {
-        // Your implementation for the button click
-        val intent = Intent(this, GlossaryActivity::class.java)
-        startActivity(intent)
-    }
+            // val tags = listOf("аутизм") // Пример
 
-    @SuppressLint("Range")
-    fun onAddRecipeClick(item: MenuItem) {
-        val db = dbHelper.readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM favourites", null)
 
-        articleList.clear()
-
-        try {
-            while (cursor.moveToNext()) {
-                val articlId = cursor.getInt(cursor.getColumnIndex("articl_id"))
-                val favoriteArticle = getArticleById(articlId)
-                articleList.add(favoriteArticle)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            cursor.close()
-            db.close()
+        val articles = articleList.filter { article ->
+            tags?.let { tags ->
+                article.tags?.contains(tags, ignoreCase = true) == true
+            } ?: true
         }
 
-        val adapter = ArticleAdapter(this, R.layout.list_item_article, articleList)
+        val adapter = ArticleAdapter(this, R.layout.list_item_article, articles)
         listView.adapter = adapter
     }
+
+
+    fun onBTClickRE(view: View) {
+        val intent = Intent(this, GlossaryActivity::class.java)
+        startActivity(intent)
+    }
+
     @SuppressLint("Range")
-    private fun getArticleById(dishId: Int): Article {
+    private fun getArticleById(id: Int): Article {
         val db = dbHelper.readableDatabase
         val selection = "id = ?"
-        val selectionArgs = arrayOf(dishId.toString())
+        val selectionArgs = arrayOf(id.toString())
 
         val cursor = db.query(
             "articles2",
@@ -184,7 +163,7 @@ class MainActivity : AppCompatActivity() {
             null
         )
 
-        var Article = Article(0, "", "", "", "", "", null, "") // Значение по умолчанию, если блюдо не найдено
+        var Article = Article(0, "", "", "", "", "", null, "")
 
         try {
             if (cursor.moveToFirst()) {
@@ -210,22 +189,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onUpdateClick(view: View) {
-        // Очистите текущий список блюд
         articleList.clear()
-
-        // Повторно загрузите данные из базы данных
         loadArticles()
-
-        // Создайте новый адаптер с обновленным списком блюд
         val adapter = ArticleAdapter(this, R.layout.list_item_article, articleList)
-
-        // Установите новый адаптер для вашего ListView
         listView.adapter = adapter
     }
-
-
-
-
-
 
 }
